@@ -48,7 +48,7 @@ public class SearchFragment extends Fragment implements BeaconConsumer {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //получение экземпляра (объекта) beaconManager для класса Main Activity
+        // получение экземпляра (объекта) beaconManager для класса Main Activity
         beaconManager = BeaconManager.getInstanceForApplication(Objects.requireNonNull(getActivity()));
 
         // Чтобы обнаружить проприетарные маяки, вы должны добавить строку, как показано ниже,
@@ -73,6 +73,8 @@ public class SearchFragment extends Fragment implements BeaconConsumer {
         // Intializing the Layout
 
         //Relative Layout
+
+
         rl = v.findViewById(R.id.Relative_One);
 
         // Recycler View
@@ -82,6 +84,9 @@ public class SearchFragment extends Fragment implements BeaconConsumer {
         pb = v.findViewById(R.id.pb);
         return v;
     }
+
+
+
 
     @Override
     public void onBeaconServiceConnect() {
@@ -187,19 +192,20 @@ public class SearchFragment extends Fragment implements BeaconConsumer {
                         //Minor
                         String minor = String.valueOf(b.getId3());
 
-                        //RSSI
-                      //  String rssi = String.valueOf(b.getRssi());
-
                         //Distance
-                        double distance1 =b.getDistance();
+                        double distance1 = b.getDistance();
                         String distance = String.valueOf(Math.round(distance1*100.0)/100.0);
+
+                        //RSSI
+                        String rssi = String.valueOf(b.getRssi());
+
 
                         ArrayList<String> arr = new ArrayList<String>();
                         arr.add(uuid);
                         arr.add(major);
                         arr.add(minor);
-                     //   arr.add(rssi);
                         arr.add(distance + " meters");
+                        arr.add(rssi);
                         arrayList.add(arr);
 
                     }

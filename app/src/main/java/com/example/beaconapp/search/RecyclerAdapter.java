@@ -42,6 +42,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         //Distance
         private final TextView distance;
 
+        //UUID
+        private final TextView rssi;
+
         //View Holder Class Constructor
         public ViewHolder(View itemView)
         {
@@ -52,6 +55,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             major = itemView.findViewById(R.id.major);
             minor = itemView.findViewById(R.id.minor);
             distance = itemView.findViewById(R.id.distance);
+            rssi = itemView.findViewById(R.id.rssi);
         }
     }
 
@@ -81,10 +85,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
             //Displaying distance
             holder.distance.setText(arrayList.get(3));
+
+            //Displaying RSSI
+            holder.rssi.setText(arrayList.get(4));
         }
     }
     @Override
     public int getItemCount()
+
     {
         return arr.size();
     }
