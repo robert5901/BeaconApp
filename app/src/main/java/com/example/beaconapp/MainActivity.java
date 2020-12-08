@@ -7,6 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
@@ -19,7 +22,10 @@ import android.os.Bundle;
 
 import com.example.beaconapp.BeaconSimulator.SimulatorFragment;
 import com.example.beaconapp.search.SearchFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import org.altbeacon.beacon.Beacon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,28 +44,16 @@ public class MainActivity extends AppCompatActivity {
         checkPermission();
 
         setContentView(R.layout.activity_main);
-
+        NavController navController=Navigation.findNavController(this, R.id.nav_host_fragment);
+        BottomNavigationView navigationView=findViewById(R.id.bview);
+        NavigationUI.setupWithNavController(navigationView, navController);
+        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.mainFragment);
         // Intializing of Layout Views
-        initializedLayout();
     }
 
 
     //Intializing of Layout Views
-    public void initializedLayout(){
 
-        // Setting up of customized toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        // Setting up of View Pager
-        ViewPager viewPager = findViewById(R.id.viewPager);
-        setupViewPager(viewPager);
-
-        //Setting up of TabLayout
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager);
-    }
 
     // Проверка разрешения, предоставлено ли разрешение ACCESS_COARSE_LOCATION или нет
     public void checkPermission(){
@@ -110,42 +105,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SearchFragment() , "Search");
-        adapter.addFragment(new SimulatorFragment() , "Simulator");
-        viewPager.setAdapter(adapter);
-    }
-
-    // Setting up the ViewPagerAdapter
-    static class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
 
 }

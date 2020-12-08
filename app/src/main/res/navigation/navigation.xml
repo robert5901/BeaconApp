@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@+id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.beaconapp.search.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_beaconInfoFragment"
+            app:destination="@id/beaconInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/beaconInfoFragment"
+        android:name="com.example.beaconapp.BeaconInfoFragment"
+        android:label="BeaconInfoFragment" >
+        <action
+            android:id="@+id/action_beaconInfoFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+</navigation>
